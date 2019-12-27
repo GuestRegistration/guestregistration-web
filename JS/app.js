@@ -20,6 +20,10 @@ firebase.initializeApp(config);
  
 
     function getURL() {
+                var $val = $('#property_id').html(); 
+                         console.log("console.log($val);");
+
+         console.log($val);
 var url =  window.location.href;
 console.log("url"+window.location.href);
 const urlParams = new URLSearchParams(window.location.search);
@@ -34,23 +38,49 @@ dbRef1.get().then(function(doc) {
 	if (doc.exists) {
 	  const data = doc.data()
 	console.log(doc.data());
-	document.getElementById("primary_guest").innerHTML=document.getElementById("primary_guest").innerHTML+doc.data().Primary_guest;
+	//document.getElementById("primary_guest").innerHTML=document.getElementById("primary_guest").innerHTML+doc.data().Primary_guest;
 	document.getElementById("check-in-date").innerHTML=doc.data().CheckIn_date;
+		document.getElementById("check-in-date").innerHTML=doc.data().CheckIn_date;
+
 	document.getElementById("check-out-date").innerHTML=doc.data().Checkout_date;
 	document.getElementById("booking-channel").innerHTML=doc.data().Booking_channel;
 	document.getElementById("number-of-guests").innerHTML=doc.data().No_of_guest;
 	document.getElementById("payment-due").innerHTML=doc.data().payment;
-	document.getElementById("property_id").innerHTML=doc.data().property_id;
+//	document.getElementById("property_id").innerHTML=doc.data().property_id;
+              		document.getElementById("Name").innerHTML=doc.data().Name;
 
-	} else {
+const db= firebase.firestore();
+ db.collection("Properties").where("Propertyid", "==", doc.data().property_id)
+    .get()
+    .then(function(querySnapshot) {
+              console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+	document.getElementById("Property_Name").innerHTML=doc.data().Property_Name;
+	//document.getElementById("Property_logo").innerHTML=doc.data().Property_logo;
+             document.querySelector('img').src =doc.data().Property_logo;
+
+         });
+       console.log(querySnapshot.docs.length);
+   const length = querySnapshot.docs.length;
+      console.log("length"+length);    
+ 
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+	}
+	else {
 		console.log("Data not Present");
 	}
   })
     }
-    	//document.getElementById("property_id");
-//console.log("Data  Present" + property_id);
+ //     var span = document.getElementById("property_id").text; 
+   //              console.log("Data  Present" + span);
+              
+   //    var property_id = document.getElementById("divproperty_id").value;
+ //console.log("Data  Present" + property_id);
 window.onload = getURL;
-
-	 
+ 	 
 
 

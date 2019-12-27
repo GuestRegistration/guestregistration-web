@@ -12,29 +12,35 @@
 
   </head>
   <body>
+
 <center>
-    <img src="img_avatar.png" alt="Avatar" style="width:200px">
 
     <h1>Time to check-in</h1>
+           <div id="divdetail1" style="overflow: hidden;" >
+            <img class="img-circle"  src="Property_logo" alt="Property_logo" id="Property_logo" style="width:100px;float: left;">
+                          <p style="float: left;">PropertyName:<span id="Property_Name"></span></p>
 
-    <!--<ul id="userList"></ul>-->
-
-     <div id="divdetail">
+     </div>
+   <div id="divdetail" style="text-align: left;">
      <p>
-       Hey <span id="primary_guest"></span>
+     <!--  Hey <span id="primary_guest"></span>-->
+       Hey <span id="Name">  </span>
      </p>
-     <p>
+          <p>  Looking forward to hosting you soon at 12 </p> 
+          <!--<p style="float: left;">PropertyName:<span id="Property_Name"></span></p>-->
+          <p>
        Below are the details of your Booking:
        <p>Stay :<span id="check-in-date"></span> to <span id="check-out-date"></span> </p>
        <p>Booking Channel:<span id="booking-channel"></span></p>
        <p>Number of Guest:<span id="number-of-guests"></span></p>
        <p>Payment:<span id="payment-due"></span></p>
-       <p>property_id:<span id="property_id"></span></p>
-<div id ="property_id"> </div>
+       <!--<p>property_id:<span id="property_id"></span></p>-->
+
      </p>
     </div>
-
+ 
     <input type="submit" value="Check-In" onclick="window.location='register.html';" /> 
+ 
 </center>
         <script>
 /*
@@ -50,6 +56,7 @@ console.log("documentid"+documentid);
 window.onload = getURL;
 */
     </script>
+   
   </body>
   
 </html>
