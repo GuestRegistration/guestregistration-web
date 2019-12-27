@@ -1,0 +1,68 @@
+body, h1, h2 {
+ margin:0;
+ padding:0;
+}
+body {
+ background:rgb(28, 2, 53);
+ font-family: Arial, sans-serif;
+}
+h1,p {
+ padding:10px;
+color: aliceblue;
+}
+h5,h4 {
+    padding:10px;
+   color: aliceblue;
+   }
+   
+   #submit{
+    background:rgb(160, 77, 238);
+    
+   }
+/*---------------------------*/
+/* Read Users */
+/*---------------------------*/
+#userList {
+ margin:0;
+ padding:0;
+ width:200px;
+ float:left;
+ margin:10px;
+ border:1px solid #8400ff;
+}
+
+#userList h2 {
+ padding:10px;
+ margin:0;
+ color:white;
+}
+
+#userList li {
+ padding:5px 10px;
+ border-top:1px solid #8400ff;
+ cursor: pointer;
+ color:white;
+ font-style: italic;
+}
+
+#userList li:hover {
+ background: #8400ff;
+}
+
+#userDetail {
+ float:left;
+ width:200px;
+ margin:10px;
+ margin-left:0;
+ padding:10px;
+ border:1px solid #8400ff;
+ color:white;
+}
+#divdetail{
+     width:50%;
+    background:rgb(91, 76, 105);    
+}
+img {
+  border-radius: 50%;
+}
+.resizedTextbox {width: 300px; height: 40px}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Contact Information</title>
+   
+     
+      <link rel="stylesheet" href="CSS/style.css">
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.6.1/firebase-auth.js"></script>
+ <script src="JS/storeuser.js"></script>
+  <script type="text/javascript" src="JS/jquery-3.4.1.js"></script>
+  </head>
+  <body>
+      <div>
+      <center>
+    <h1>Contact Information</h1>
+     
+    <h4>Legal First Name</h4>
+     <input type="text" name="firstname" id ="firstname" class="resizedTextbox" onKeyUp="Validatephone()" required><br>
+ <h4>Legal Last Name</h4>
+     <input type="text" name="lastname" id ="lastname" class="resizedTextbox" onKeyUp="Validatephone()" required><br>
+  <h4>Phone Number</h4>
+     <input type="text" name="phone" id ="phone" class="resizedTextbox" required onKeyUp="Validatephone()" ><br><br><br>
+<p id="my-error-message-container" 
+style="display:none; border:1px solid red; color:red; background-color:white; font-size:12px; padding:0px; width:188px;"></p>
+    <input type="submit" id="submit" value="Next" onclick="storeuser()"/> 
+   
+</center>
+</div>
+<script>
+function RemoveErrorMessageFromPage()
+{
+   var IDofContainer = "my-error-message-container";
+   document.getElementById(IDofContainer).innerHTML = "";
+   document.getElementById(IDofContainer).style.display = "none";
+}
+
+function InsertErrorMessageIntoPage(content)
+{
+   var IDofContainer = "my-error-message-container";
+   document.getElementById(IDofContainer).style.display = "";
+   document.getElementById(IDofContainer).innerHTML = content;
+}
+
+function Validatephone() {
+      RemoveErrorMessageFromPage();
+  var phoneno = /^\d{10}$/;
+  var phone = document.getElementById("phone").value;
+  var firstname = document.getElementById("firstname").value;
+  var lastname = document.getElementById("lastname").value;
+  if (phone === "" || lastname =="" || firstname=="") {
+    //alert("Phone Number must be filled out");
+    InsertErrorMessageIntoPage("One or more fields are incomplete!.");
+    return false;
+  }
+  else if(phone.match(phoneno))
+{
+//storeuser();
+return true;
+}
+  else{
+     // alert("You have entered an invalid PhoneNumber!");
+           InsertErrorMessageIntoPage("Please Enter a Valid Phone Number!");
+
+return false;
+}
+    
+}
+
+</script>
+  </body>
+
+</html>
+ 

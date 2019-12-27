@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>register</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+  <script type="text/javascript" src="JS/register_script.js"></script>
+  <script type="text/javascript" src="JS/jquery-3.4.1.js"></script>
+  </head>
+  <body>
+      <!--Content-Security-Policy: default-src *-->
+      <div>
+      <center>
+    <h1>Let's get started</h1>
+    <h5>Give us ur email so we can identify you</h5>
+    <h4>What your email address</h4>
+     <input type="email" name="email" class="resizedTextbox" id ="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  size="30"  required onKeyUp="ValidateEmail()" ><br><br><br>
+ <p id="my-error-message-container" 
+style="display:none; border:1px solid red; color:red; background-color:white; font-size:12px; padding:0px; width:188px;"></p>
+
+    <input type="submit" id="submit" value="Next"  onclick="sendSignInWithEmailLink()"  /> 
+            <!--<input type="submit" id="submit" value="Next"  onclick="ValidateEmail()"  /> -->
+
+    <div id="emailoutput">
+
+    </div>
+</center>
+</div>
+<script>
+function RemoveErrorMessageFromPage()
+{
+   var IDofContainer = "my-error-message-container";
+   document.getElementById(IDofContainer).innerHTML = "";
+   document.getElementById(IDofContainer).style.display = "none";
+}
+
+function InsertErrorMessageIntoPage(content)
+{
+   var IDofContainer = "my-error-message-container";
+   document.getElementById(IDofContainer).style.display = "";
+   document.getElementById(IDofContainer).innerHTML = content;
+}
+function ValidateEmail() {
+    RemoveErrorMessageFromPage();
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+       var email = document.getElementById("email").value;
+  if (email === "") {
+          InsertErrorMessageIntoPage("Please Enter a Valid Email Address!");
+
+  //  alert("Email must be filled out");
+    return false;
+  }
+  else if(email.match(mailformat))
+{
+        //  sendSignInWithEmailLink();
+
+return true;
+}
+  else{
+                 InsertErrorMessageIntoPage("Invalid Email Address!");
+
+      //alert("You have entered an invalid email address!");
+return false;
+}
+    
+}
+ /*   function ValidateEmail(email)
+{
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if(inputText.value.match(mailformat))
+{
+document.form1.text1.focus();
+return true;
+}
+else
+{
+alert("You have entered an invalid email address!");
+document.form1.text1.focus();
+return false;
+}
+}
+
+
+function Validatephone() {
+      RemoveErrorMessageFromPage();
+  var phoneno = /^\d{10}$/;
+  var phone = document.getElementById("phone").value;
+  if (phone === "") {
+    InsertErrorMessageIntoPage("Phone Number must be filled out!.");
+    return false;
+  }
+  else if(phone.match(phoneno))
+{
+storeuser();
+return true;
+}
+  else{
+           InsertErrorMessageIntoPage("You have entered an invalid PhoneNumber!");
+return false;
+}
+    
+}
+
+
+*/
+</script>
+  </body>
+  
+ 
+</html>
