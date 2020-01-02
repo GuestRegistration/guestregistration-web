@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guest App || Idverification</title>
+    <link rel="stylesheet" href="CSS/style.css">
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.6.1/firebase-auth.js"></script>
+  <script src="JS/retrievelink.js"></script>
+  <script type="text/javascript" src="JS/jquery-3.4.1.js"></script>
+  </head>
+  
+  <body>
+ 
+<center>
+    <h1>Identity Verification</h1>
+<select  id= "idtype" style="width: 150px !important; height: 60px !important; min-width: 400px; max-width: 400px;">
+  <option value="Select your id type">Select your id type</option>
+  <option value="Passport">Passport</option>
+  <option value="Driving Licence">Driving Licence</option>
+  <option value="Identity Verification Type3">Identity Verification Type3</option>
+  <option value="Identity Verification Type4">Identity Verification Type4</option>
+</select>
+  <br><br><br><br><br><br>
+ 
+     <br><br><br><br><br><br><br><br><br><br><br><br>
+
+ 
+<div>
+ 		<progress id="uploader" value="0" max="100">0%</progress>
+		<input type="file" id="fileButton" value="upload" style="color:white"/>
+	<!--	<img id="myimage" src="#" height="200">-->
+	</div>
+	
+  <!--<button class="file-submit" onclick="lupload()">SUBMIT</button>-->
+
+</center>
+<script>
+/*function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#fileButton').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#myimage").change(function(){
+    readURL(this);
+});*/
+var fileButton = document.getElementById('fileButton');
+  fileButton.addEventListener('change', function(e){
+  var file = e.target.files[0];
+   /*var reader = new FileReader();
+
+  var imgtag = document.getElementById("myimage");
+  imgtag.title = selectedFile.name;
+
+  reader.onload = function(event) {
+    imgtag.src = event.target.result;
+  };*/
+  var storageRef = firebase.storage().ref(file.name);
+  var task = storageRef.put(file);
+  task.on('state_changed', function progress(snapshot) {
+ 
+    var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+    uploader.value = percentage;
+       if(percentage==100){
+          storageRef.getDownloadURL().then(function (url) {
+             // You will get the Url here.
+             // alert("Image Uploaded and also updated to the database");
+             
+             var idtype = document.getElementById("idtype");
+             var strUser = idtype.options[idtype.selectedIndex].text;
+             console.log(strUser);
+             var imgurl = url;
+              console.log(imgurl);
+                  var email = window.localStorage.getItem('emailForSignIn');
+      console.log("emailForSignInnnnnnnnnnnnnnn"+email);
+         const db= firebase.firestore();
+ db.collection("users").where("email", "==", email)
+    .get()
+    .then(function(querySnapshot) {
+            //  console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+             console.log(doc.id);
+             
+             db.collection("users")
+        .doc(doc.id)
+        .set(
+            {
+                idverification: imgurl,
+                id_type: strUser,
+            },
+            { merge: true }
+            );
+             //
+	            });  })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });  
+          });
+      }
+    
+  }, function error(err) {
+console.log(err);
+  },function complete() {
+ 
+  });
+});  
+
+ 
+</script>
+ 
+  </body>
+
+</html>

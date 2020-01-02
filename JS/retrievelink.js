@@ -10,7 +10,9 @@ measurementId: "G-GJS6X8Z6X4"
  } ;
 
 firebase.initializeApp(config);
- 
+ const storageService = firebase.storage();
+const storageRef = storageService.ref();
+
  function handleSignIn() {
       // [START handlesignin]
       
@@ -92,4 +94,32 @@ firebase.initializeApp(config);
             });*/
       // [END authstatelistener]
     }
+     
+
+ 
+
+/*function lupload(){
+      
+  var fileButton = document.getElementById('fileButton');
+  fileButton.addEventListener('change', function(e){
+  var file = e.target.files[0];
+  var storageRef = firebase.storage().ref(file.name);
+  var task = storageRef.put(file);
+  task.on('state_changed', function progress(snapshot) {
+      console.log("start uploading");
+
+    var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+    uploader.value = percentage;
+  }, function error(err) {
+console.log(err);
+
+  },function complete() {
+alert("added");
+  });
+});  
+  
+}
+      */
+   
+  
     window.onload = initApp;

@@ -12,7 +12,7 @@ measurementId: "G-GJS6X8Z6X4"
 firebase.initializeApp(config); 
 
                   const actionCodeSettings = {
-     url:'https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/index1.html',
+     url:'https://fluttertest.000webhostapp.com/JavaScript/Read Data/id_verification.html',
      dynamicLinkDomain : 'guestsignin.page.link',
     handleCodeInApp: true,
    };
