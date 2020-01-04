@@ -12,12 +12,55 @@ measurementId: "G-GJS6X8Z6X4"
 firebase.initializeApp(config); 
 
                   const actionCodeSettings = {
-     url:'https://fluttertest.000webhostapp.com/JavaScript/Read Data/id_verification.html',
+     //url:'https://fluttertest.000webhostapp.com/JavaScript/Read Data/id_verification.html',
+          url:'https://fluttertest.000webhostapp.com/JavaScript/Read Data/contactinfo.html',
      dynamicLinkDomain : 'guestsignin.page.link',
     handleCodeInApp: true,
    };
  function sendSignInWithEmailLink() {
-     
+            var email = document.getElementById("email").value;
+
+        firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
+.then(function() {
+ console.log("inside try email"+email);
+  console.log("Email sent to"+email);
+          alert('An email was sent to ' + email + '. Please use the link in the email to sign-in.');
+          window.localStorage.setItem('emailForSignIn', email);
+ 
+})
+.catch(function(error) {
+ console.error("error in send email "+error);
+ });
+
+
+      /*  firebase.auth().onAuthStateChanged(function(user) {
+             user = firebase.auth().currentUser;
+
+  if (user) {
+    // User is signed in.
+    console.log(user)
+  } else {
+    // No user is signed in.
+    console.log("nouser");
+  }
+});*/
+
+     /*var user = firebase.auth().currentUser;
+        console.log("check user details");
+   console.log(user);*/
+   
+ /*  var currentUser;
+firebase
+    .auth()
+    .onAuthStateChanged(function(user){
+        currentUser = user;
+        console.log(currentUser); //this returns my user object 
+    });
+    console.log("haiiiiiiiiiii");
+console.log(currentUser); //this returns "undefined"
+
+var otherCurrentUser = firebase.auth().currentUser;
+console.log(otherCurrentUser);
        var email = document.getElementById("email").value;
        var email1 = document.getElementById("email").value;
          if (email === "") {
@@ -70,10 +113,10 @@ else{
     });
 
 return true;
-}
+}*/
 
      
-    }
+    } 
  
 
  

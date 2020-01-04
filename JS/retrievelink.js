@@ -37,9 +37,30 @@ const storageRef = storageService.ref();
             // Clear email from storage.
           //  window.localStorage.removeItem('emailForSignIn');
             // Signed-in user's information.
+            
             var user = result.user;
+            console.log("userobject")
+            console.log(user);
             var isNewUser = result.additionalUserInfo.isNewUser;
-            console.log(result)
+              console.log("result");
+            console.log(result);
+            console.log("isNewUser"+isNewUser);
+            /*if(user){
+                window.location.href = "https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/id_verification.html";
+            }
+            else{
+                console.log("newuser");
+            }*/
+            
+            if(isNewUser == true){
+             console.log("newuser");
+            var user1 = firebase.auth().currentUser;
+console.log(user1);
+storeuser(); 
+            }
+            else{
+                 window.location.href = "https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/id_verification.html";
+            }
           }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -64,6 +85,47 @@ const storageRef = storageService.ref();
       // Re-enable the sign-in button.
       //document.getElementById('quickstart-sign-in').disabled = false;
     }
+       
+ function storeuser() {
+ 
+         var email = window.localStorage.getItem('emailForSignIn');
+console.log("email"+email);
+       //var email = document.getElementById("email").value;
+       //var email1 = document.getElementById("email").value;
+      var firstname = document.getElementById("firstname").value;
+       var lastname = document.getElementById("lastname").value;
+       var phone = document.getElementById("phone").value;
+
+console.log(firstname);
+console.log(firstname);
+console.log("lname"+lastname);
+console.log("phone"+phone);
+
+  if (phone === "" || lastname ==="" || firstname ==="") {
+    //alert("Phone Number must be filled out");
+    InsertErrorMessageIntoPage("One or more fields are incomplete!.");
+    return false;
+  }
+  else 
+{
+ 
+const db= firebase.firestore();
+    db.collection("users")
+    .doc()
+    .set(
+        {
+            name: firstname,
+            lastname: lastname,
+            phone: phone,
+            email:email
+            
+        },
+        { merge: true }
+    ); 
+ 
+}
+}
+    
     function initApp() {
       // Restore the previously used value of the email.
       var email = window.localStorage.getItem('emailForSignIn');

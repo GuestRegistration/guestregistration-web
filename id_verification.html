@@ -26,34 +26,81 @@
 </select>
   <br><br><br><br><br><br>
  
-     <br><br><br><br><br><br><br><br><br><br><br><br>
+ <!--    <br><br><br><br><br><br><br><br><br><br><br><br>-->
 
- 
+  	    <img id="myimage" src="#" alt="your image display here" height="200" width="200"/>
+  <br><br><br><br>
 <div>
  		<progress id="uploader" value="0" max="100">0%</progress>
+ 		<br><br>
 		<input type="file" id="fileButton" value="upload" style="color:white"/>
-	<!--	<img id="myimage" src="#" height="200">-->
+  
+
 	</div>
 	
-  <!--<button class="file-submit" onclick="lupload()">SUBMIT</button>-->
+  <button class="file-submit" onclick="getuser()">SUBMIT</button>
+
 
 </center>
 <script>
-/*function readURL(input) {
+function getuser(){
+    /*var currentUser = {};
+var myRef = "https://guestregistration-4140a.firebaseio.com";
+var authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
+  if (error) {
+    // an error occurred while attempting login
+    console.log(error);
+  } else if (user) {
+    // user authenticated with Firebase
+    currentUser = user;
+    console.log(user);
+  } else {
+    // user is logged out
+    console.log("logged out");
+  }
+});*/
+var user1 = firebase.auth().currentUser;
+console.log("user1");
+
+console.log(user1);
+            
+            console.log("userobject")
+            console.log(user1);
+            //var isNewUser = user1.additionalUserInfo.isNewUser;
+            
+            //console.log("isNewUser"+isNewUser);
+ 
+/*var currentUser;
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+      currentUser = user.uid;
+      console.log(currentUser.email); //this returns my user object 
+      window.localStorage.setItem("UID",currentUser);
+  } else {
+      currentUser = "Error"
+      console.log(currentUser); //this returns my user object 
+      window.localStorage.setItem("UID",currentUser);
+       alert(" Error in your login code");
+    // No user is signed in.
+  }
+});*/
+    
+}
+function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            $('#fileButton').attr('src', e.target.result);
+            $('#myimage').attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-$("#myimage").change(function(){
+$("#fileButton").change(function(){
     readURL(this);
-});*/
+});
 var fileButton = document.getElementById('fileButton');
   fileButton.addEventListener('change', function(e){
   var file = e.target.files[0];
@@ -74,7 +121,7 @@ var fileButton = document.getElementById('fileButton');
        if(percentage==100){
           storageRef.getDownloadURL().then(function (url) {
              // You will get the Url here.
-             // alert("Image Uploaded and also updated to the database");
+             
              
              var idtype = document.getElementById("idtype");
              var strUser = idtype.options[idtype.selectedIndex].text;
@@ -83,7 +130,14 @@ var fileButton = document.getElementById('fileButton');
               console.log(imgurl);
                   var email = window.localStorage.getItem('emailForSignIn');
       console.log("emailForSignInnnnnnnnnnnnnnn"+email);
+      var user = firebase.auth().currentUser;
+      console.log("currentuser");
+      console.log(user);
+      var user = firebase.auth().currentUser;
+
          const db= firebase.firestore();
+ //        db.collection("stories").where("author", "==", user.uid).get()
+
  db.collection("users").where("email", "==", email)
     .get()
     .then(function(querySnapshot) {
@@ -112,7 +166,7 @@ var fileButton = document.getElementById('fileButton');
   }, function error(err) {
 console.log(err);
   },function complete() {
- 
+  alert("Image Uploaded and also updated to the database");
   });
 });  
 

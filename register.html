@@ -44,6 +44,12 @@ function InsertErrorMessageIntoPage(content)
    document.getElementById(IDofContainer).innerHTML = content;
 }
 function ValidateEmail() {
+   
+     /*var user = firebase.auth().currentUser;
+        console.log("check user details");
+   console.log(user);*/
+
+
     RemoveErrorMessageFromPage();
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
        var email = document.getElementById("email").value;

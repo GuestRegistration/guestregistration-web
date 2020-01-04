@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>Guest App</title>
   <link rel="stylesheet" href="CSS/style.css">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
   <script src="/__/firebase/7.6.1/firebase-auth.js"></script>
@@ -11,6 +12,33 @@
     <script type="text/javascript" src="JS/jquery-3.4.1.js"></script>
 
   </head>
+  <style>
+            table{ 
+      border-collapse:separate; 
+      border-spacing: 0 15px; 
+      /*border-collapse: collapse;*/
+      } 
+ 
+
+table,
+th,
+td,tr {
+  /*border: 1px solid black;-*/
+  font-size: 15px;
+  /*height: 20px;*/
+  text-align: left;
+  color:white;
+}
+ 
+      th,td{ 
+      width: 300px; 
+    color:white;
+
+      padding: 5px;
+      } 
+
+
+  </style>
   <body>
 
 <center>
@@ -21,40 +49,84 @@
                           <p style="float: left;"><span id="Property_Name"></span></p>
 
      </div>
-   <div id="divdetail" style="text-align: left;">
+     <br><br>
+  
+   <!--    <div id="divdetail" style="text-align: left;">
      <p>
-     <!--  Hey <span id="primary_guest"></span>-->
-       Hey <span id="Name">  </span>
+        Hey <span id="Name">  </span>
      </p>
           <p>  Looking forward to hosting you soon at 12 </p> 
-          <!--<p style="float: left;">PropertyName:<span id="Property_Name"></span></p>-->
-          <p>
+           <p>
        Below are the details of your Booking:
        <p>Stay :<span id="check-in-date"></span> to <span id="check-out-date"></span> </p>
        <p>Booking Channel:<span id="booking-channel"></span></p>
        <p>Number of Guest:<span id="number-of-guests"></span></p>
        <p>Payment:<span id="payment-due"></span></p>
-       <!--<p>property_id:<span id="property_id"></span></p>-->
-
-     </p>
-    </div>
  
+     </p>
+    </div>-->
+
+ 
+ <table id="divdetail" >
+ <tr>
+     <td>
+         Hey 
+     </td>
+       <td>
+         :&nbsp;&nbsp;<span id="Name"> </span> 
+     </td>
+      
+ </tr>
+  <tr>
+        <td align="center"> Looking forward to hosting you soon at 12</td>   
+ </tr>
+  <tr> <td >Below are the details of your Booking:</td></tr>
+  <tr>
+     <td>
+         Stay
+     </td>
+       <td>
+         :&nbsp;&nbsp;<span id="check-in-date"></span>&nbsp;&nbsp;to&nbsp;&nbsp; <span id="check-out-date"></span>
+     </td>
+ 
+ </tr>
+  <tr>
+     <td>
+         Booking Channel
+     </td>
+       <td>
+         :&nbsp;&nbsp;<span id="booking-channel"></span>
+
+     </td>
+     
+ </tr>
+   <tr>
+     <td>
+          
+      Number of Guest
+     </td>
+       <td>
+         :&nbsp;&nbsp;<span id="number-of-guests"></span>
+     </td>
+      
+ </tr>
+  
+    <tr>
+     <td>
+          
+      Payment
+     </td>
+       <td>
+         :&nbsp;&nbsp;<span id="payment-due"></span>
+     </td>
+     
+ </tr>
+ </table>
     <input type="submit" value="Check-In" onclick="window.location='register.html';" /> 
  
 </center>
         <script>
-/*
-    function getURL() {
-var url =  window.location.href;
-console.log("url"+window.location.href);
-const urlParams = new URLSearchParams(window.location.search);
-const documentid = urlParams.get('documentid');
-console.log("parsedUrl"+url);
-console.log("documentid"+documentid); 
 
-    }
-window.onload = getURL;
-*/
     </script>
    
   </body>
