@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guest App || Terms & conditions</title>
+    <link rel="stylesheet" href="CSS/style.css">
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.6.1/firebase-auth.js"></script>
+  <script src="JS/retrievelink.js"></script>
+  <script type="text/javascript" src="JS/jquery-3.4.1.js"></script>
+<script src="JS/signature_pad.min.js"></script>
+  </head>
+  
+  <body>
+ 
+<center>
+    <h1>Terms and Conditions</h1>
+ 
+  <br><br><br><br><br><br>
+    <br><br><br><br>
+<div class="canvas" id="canvas">
+ <div class="wrapper">
+   <canvas id="signature-pad" class="signature-pad" width=400 height=200></canvas>
+</div>
+<div>
+  <button id="save">Save</button>
+  <button id="clear">Clear</button>
+</div>
+	</div>
+	  	<div id="imageWrapper1" class="imageWrapper"></div>
+
+</center>
+    <script>
+     
+
+  var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
+  backgroundColor: 'rgba(255, 255, 255, 0)',
+  penColor: 'rgb(0, 0, 0)'
+});
+var saveButton = document.getElementById('save');
+var cancelButton = document.getElementById('clear');
+
+saveButton.addEventListener('click', function (event) {
+  var data = signaturePad.toDataURL('image/png');
+console.log("dataaaaaaaaaaaaaaa"+data);
+ var image = new Image;
+  image.src = data;
+   $("#imageWrapper1").html(image);
+    var imageWrapper = document.getElementsByClassName("imageWrapper")[0].innerHTML;
+ // var imageWrapper = document.querySelector('imageWrapper');
+    //imageWrapper.addEventListener('load', function(e){
+    var url = data;
+fetch(url)
+.then(res => res.blob())
+.then(console.log)
+  //console.log("imageWrapper"+file);
+  //var file = e.target.files[0];
+  console.log("file"+url);
+ 
+})
+   // var imageWrapper1 = document.getElementById("imageWrapper1").innerHTML;
+    //console.log("imageWrapper"+imageWrapper1);
+  document.getElementById("imageWrapper1").addEventListener('touchend', function(e){
+  var file = e.target.files[0];
+ 
+  var storageRef = firebase.storage().ref(file.name);
+  var task = storageRef.put(file);
+  task.on('state_changed', function progress(snapshot) {
+ 
+    var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+    uploader.value = percentage;
+       if(percentage==100){
+          storageRef.getDownloadURL().then(function (url) {
+ 
+              
+             var imgurl = url;
+              console.log(imgurl);
+                  var email = window.localStorage.getItem('emailForSignIn');
+  
+/*
+         const db= firebase.firestore();
+ //        db.collection("stories").where("author", "==", user.uid).get()
+
+ db.collection("users").where("email", "==", email)
+    .get()
+    .then(function(querySnapshot) {
+            //  console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+             console.log(doc.id);
+             
+             db.collection("users")
+        .doc(doc.id)
+        .set(
+            {
+                idverification: imgurl,
+                id_type: strUser,
+            },
+            { merge: true }
+            );
+             //
+	            });  }).then(function() {
+           alert("You have been Successfully Upload Your id");
+           window.location.href="https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/terms&con.html";
+
+           }).catch(function(error){  // for when document is not correctly wrote
+            alert("Got an error",error); 
+             });*/
+   
+          });
+      }
+    
+  } 
+  );
+});  
+cancelButton.addEventListener('click', function (event) {
+  signaturePad.clear();
+});
+    </script>
+  </body>
+
+</html>
