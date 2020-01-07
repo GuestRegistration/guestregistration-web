@@ -13,6 +13,17 @@ measurementId: "G-GJS6X8Z6X4"
 
 firebase.initializeApp(config);
 
+/*firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+               console.log(user);
+
+  } else {
+    // No user is signed in.
+               console.log("nouser");
+
+  }
+});*/
   /*<script type="text/javascript" src="config.js"></script>*/
 
 //const dbRef = firestore.database().ref();
@@ -20,6 +31,10 @@ firebase.initializeApp(config);
  
 
     function getURL() {
+        /*var user = firebase.auth().currentUser;
+                   console.log("hai");
+
+           console.log(user);*/
                 var $val = $('#property_id').html(); 
                          console.log("console.log($val);");
 
@@ -48,7 +63,16 @@ dbRef1.get().then(function(doc) {
 	document.getElementById("payment-due").innerHTML=doc.data().payment;
 //	document.getElementById("property_id").innerHTML=doc.data().property_id;
               		document.getElementById("Name").innerHTML=doc.data().Name;
+var reservationid = doc.data().resevation_id;
+var propertyid = doc.data().property_id;
 
+//console.log("rid"+reservationid);
+ var rid_store = window.localStorage.setItem('rid_store',reservationid);
+  var property_id = window.localStorage.setItem('property_id',propertyid);
+
+  var document_id = window.localStorage.setItem('document_id',documentid);
+
+ //console.log(rid_store);
 const db= firebase.firestore();
  db.collection("Properties").where("Propertyid", "==", doc.data().property_id)
     .get()

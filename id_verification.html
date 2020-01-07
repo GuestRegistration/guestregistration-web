@@ -33,59 +33,16 @@
 <div>
  		<progress id="uploader" value="0" max="100">0%</progress>
  		<br><br>
-		<input type="file" id="fileButton" value="upload" style="color:white"/>
+	<input type="file" id="fileButton" value="upload" style="color:white"/>
   
 
 	</div>
-	
-  <button class="file-submit" onclick="getuser()">SUBMIT</button>
-
+	<input type="button" onClick="location.href='https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/terms&con.html'" value='Next'>
+ 
 
 </center>
 <script>
-function getuser(){
-    /*var currentUser = {};
-var myRef = "https://guestregistration-4140a.firebaseio.com";
-var authClient = new FirebaseSimpleLogin(myRef, function(error, user) {
-  if (error) {
-    // an error occurred while attempting login
-    console.log(error);
-  } else if (user) {
-    // user authenticated with Firebase
-    currentUser = user;
-    console.log(user);
-  } else {
-    // user is logged out
-    console.log("logged out");
-  }
-});*/
-var user1 = firebase.auth().currentUser;
-console.log("user1");
-
-console.log(user1);
-            
-            console.log("userobject")
-            console.log(user1);
-            //var isNewUser = user1.additionalUserInfo.isNewUser;
-            
-            //console.log("isNewUser"+isNewUser);
  
-/*var currentUser;
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-      currentUser = user.uid;
-      console.log(currentUser.email); //this returns my user object 
-      window.localStorage.setItem("UID",currentUser);
-  } else {
-      currentUser = "Error"
-      console.log(currentUser); //this returns my user object 
-      window.localStorage.setItem("UID",currentUser);
-       alert(" Error in your login code");
-    // No user is signed in.
-  }
-});*/
-    
-}
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -101,17 +58,11 @@ function readURL(input) {
 $("#fileButton").change(function(){
     readURL(this);
 });
+
 var fileButton = document.getElementById('fileButton');
   fileButton.addEventListener('change', function(e){
   var file = e.target.files[0];
-   /*var reader = new FileReader();
-
-  var imgtag = document.getElementById("myimage");
-  imgtag.title = selectedFile.name;
-
-  reader.onload = function(event) {
-    imgtag.src = event.target.result;
-  };*/
+ 
   var storageRef = firebase.storage().ref(file.name);
   var task = storageRef.put(file);
   task.on('state_changed', function progress(snapshot) {
@@ -124,8 +75,8 @@ var fileButton = document.getElementById('fileButton');
              
              
              var idtype = document.getElementById("idtype");
-             var strUser = idtype.options[idtype.selectedIndex].text;
-             console.log(strUser);
+             var id_type = idtype.options[idtype.selectedIndex].text;
+             console.log(id_type);
              var imgurl = url;
               console.log(imgurl);
                   var email = window.localStorage.getItem('emailForSignIn');
@@ -151,25 +102,32 @@ var fileButton = document.getElementById('fileButton');
         .set(
             {
                 idverification: imgurl,
-                id_type: strUser,
+                id_type: id_type,
             },
             { merge: true }
             );
              //
-	            });  })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });  
-          });
-      }
-    
-  }, function error(err) {
-console.log(err);
-  },function complete() {
-  alert("Image Uploaded and also updated to the database");
-  });
-});  
-
+            });  })
+	    .catch(function(error) {
+	
+	
+	
+	
+	
+	
+	        console.log("Error getting documents: ", error);
+	    });  
+	          });
+	      }
+	    
+	  }, function error(err) {
+	console.log(err);
+	  },function complete() {
+	  alert("Image Uploaded and also updated to the database");
+	  });
+	
+	});  
+	
  
 </script>
  

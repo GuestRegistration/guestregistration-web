@@ -1,0 +1,165 @@
+body,  h2 {
+ margin:0;
+ padding:0;
+}
+body {
+ background:rgb(28, 2, 53);
+ font-family: Arial, sans-serif;
+}
+h1,p {
+ padding:10px;
+color: aliceblue;
+}
+h5,h4 {
+    padding:10px;
+   color: aliceblue;
+   }
+   
+   #submit{
+    background:rgb(160, 77, 238);
+    
+   }
+ 
+/*---------------------------*/
+/* Read Users */
+/*---------------------------*/
+#userList {
+ margin:0;
+ padding:0;
+ width:200px;
+ float:left;
+ margin:10px;
+ border:1px solid #8400ff;
+}
+
+#userList h2 {
+ padding:10px;
+ margin:0;
+ color:white;
+}
+
+#userList li {
+ padding:5px 10px;
+ border-top:1px solid #8400ff;
+ cursor: pointer;
+ color:white;
+ font-style: italic;
+}
+
+#userList li:hover {
+ background: #8400ff;
+}
+
+#userDetail {
+ float:left;
+ width:200px;
+ margin:10px;
+ margin-left:0;
+ padding:10px;
+ border:1px solid #8400ff;
+ color:white;
+}
+/*
+@media screen and (max-width: 600px) {
+  #title_message {
+    visibility: hidden;
+    clear: both;
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 28%;
+    display: none;
+  }
+}
+
+*/
+#divdetail{
+/*     width:100%;*/
+  clear: both;
+     background:rgb(91, 76, 105);    
+}
+#divdetail_property{
+     width:50%;
+  clear: both;
+     background:rgb(91, 76, 105);    
+}
+#divdetail1{
+     width:50%;
+ margin-left:250px; }
+#Property_logo {
+  border-radius: 50%;
+}
+.resizedTextbox {width: 300px; height: 40px}
+
+    .circle-wrap {
+      margin: 50px auto;
+      width: 150px;
+      height: 150px;
+      background: #e6e2e7;
+      border-radius: 50%;
+    }
+        .circle-wrap .circle .mask,
+    .circle-wrap .circle .fill {
+      width: 150px;
+      height: 150px;
+      position: absolute;
+      border-radius: 50%;
+    }
+        .circle-wrap .circle .mask {
+      clip: rect(0px, 150px, 150px, 75px);
+    }
+        .circle-wrap .circle .mask .fill {
+      clip: rect(0px, 75px, 150px, 0px);
+      background-color: #9e00b1;
+    }
+    .circle-wrap .circle .mask.full,
+    .circle-wrap .circle .fill {
+      animation: fill ease-in-out 3s;
+      transform: rotate(126deg);
+    }
+     
+    @keyframes fill {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(126deg);
+      }
+    }
+        .circle-wrap .inside-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: #fff;
+      line-height: 130px;
+      text-align: center;
+      margin-top: 10px;
+      margin-left: 10px;
+      position: absolute;
+      z-index: 100;
+      font-weight: 700;
+      font-size: 2em;
+    }
+    
+              .wrapper {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+ 
+.signature-pad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width:400px;
+  height:200px;
+  
+}
+#canvas{
+     background-color: white;
+      width:50%;
+      height:50%;
+}

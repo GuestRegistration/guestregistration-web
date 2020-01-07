@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guest App || Additional Guest</title>
+    <link rel="stylesheet" href="CSS/style.css">
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+  <script src="/__/firebase/7.6.1/firebase-auth.js"></script>
+  <script src="JS/retrievelink.js"></script>
+  <script type="text/javascript" src="JS/jquery-3.4.1.js"></script>
+   <style>
+      span{
+          color:white;
+      }
+     
+  </style>
+  </head>
+  
+  <body>
+ 
+<center>
+
+  
+    <h1>Additional Guest</h1>
+          <br><br><br><br>
+              <div id="div_propertyname">
+           <h1><span id="Property_Name"></span> </h1>  
+
+</div>
+ <select  id= "additional_guest" style="width: 100px !important; height: 40px !important; min-width: 300px; max-width: 300px;">
+  <option value="--Select--">--Select--</option>
+  <option value="Yes">Yes</option>
+    <option value="No">No</option>
+
+</select>
+<br><br><br>
+
+    <div id="add_email_div" style="display:none;">
+            <h4>Additional Guest email address</h4>
+     <input type="email" name="Additional_email" class="resizedTextbox" id ="Additional_email" size="30"><br><br><br>
+     </div>
+     <input type="button" onClick=store_additional_guest() value='Next'>
+
+</center>
+ 
+
+    <script>
+$('#additional_guest').on('change',function(){
+    if( $(this).val()==="Yes"){
+    $("#add_email_div").show()
+    }
+    else{
+    $("#add_email_div").hide()
+    }
+});
+
+ function load_rule() { 
+    console.log("load_rule");
+           var property_id = window.localStorage.getItem('property_id');
+        console.log("stored property_id"+property_id);
+     pid1 = parseInt(property_id);
+    const db= firebase.firestore();
+ db.collection("Properties").where("Propertyid", "==", pid1)
+    .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+	document.getElementById("Property_Name").innerHTML=doc.data().Property_Name;
+     
+         });
+ 
+      console.log("length of document"+length);    
+ 
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+}
+function store_additional_guest(){
+     console.log("inside store_additional_gues");
+    var rid_store = window.localStorage.getItem('rid_store');
+    console.log(rid_store);
+           var Additional_email = document.getElementById("Additional_email").value;
+
+              //var Additional_email = document.getElementById("Additional_email");
+       var additional_guest = document.getElementById("additional_guest");
+
+             var additional_guest = additional_guest.options[additional_guest.selectedIndex].text;
+             console.log(additional_guest);
+    rid1 = parseInt(rid_store);
+    const db= firebase.firestore();
+ db.collection("Reservation").where("resevation_id", "==", rid1)
+    .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+	        db.collection("Reservation")
+        .doc(doc.id)
+        .set(
+            {
+                additional_guest: additional_guest,
+                 additional_guest_email: Additional_email,
+            },
+            { merge: true }
+            );
+         });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+}
+ window.onload = load_rule;
+    </script>
+  </body>
+
+</html>

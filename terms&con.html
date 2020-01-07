@@ -11,15 +11,50 @@
   <script src="JS/retrievelink.js"></script>
   <script type="text/javascript" src="JS/jquery-3.4.1.js"></script>
 <script src="JS/signature_pad.min.js"></script>
+  <style>
+      span{
+          color:white;
+      }
+      #div_propertyname{
+          margin-right:100;
+          padding-right: 300px;
+          
+      }
+      
+ 
+@media screen and (min-width: 409px) {
+#canvas {
+    background-color: white;
+      width:50%;
+      height:50%;
+  }
+}
+@media screen and (max-width: 419px) {
+#canvas {
+    background-color: white;
+      width:80%;
+      height:50%;
+  }
+}
+
+  </style>
   </head>
   
   <body>
  
 <center>
     <h1>Terms and Conditions</h1>
- 
-  <br><br><br><br><br><br>
+          <br><br><br><br>
+<div id="div_propertyname">
+           <h1><span id="Property_Name"></span> </h1>  
+
+</div>
+  
+   	<table id="divdetail_property">
+      <td><span id="terms"></span></td>
+	  	</table>
     <br><br><br><br>
+    
 <div class="canvas" id="canvas">
  <div class="wrapper">
    <canvas id="signature-pad" class="signature-pad" width=400 height=200></canvas>
@@ -29,11 +64,39 @@
   <button id="clear">Clear</button>
 </div>
 	</div>
-	  	<div id="imageWrapper1" class="imageWrapper"></div>
+	<br><br>
+<input type="button" onClick="location.href='https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/Additionalguest.html'" value='Next'>
 
+       
 </center>
     <script>
      
+function load_rule() { 
+    console.log("load_rule");
+           var property_id = window.localStorage.getItem('property_id');
+        console.log("stored property_id"+property_id);
+     pid1 = parseInt(property_id);
+    const db= firebase.firestore();
+ db.collection("Properties").where("Propertyid", "==", pid1)
+    .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+	document.getElementById("Property_Name").innerHTML=doc.data().Property_Name;
+          //    document.querySelector('img').src =doc.data().terms;
+          	document.getElementById("terms").innerHTML=doc.data().terms;
+
+         });
+ 
+      console.log("length of document"+length);    
+ 
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+}
+
 
   var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
   backgroundColor: 'rgba(255, 255, 255, 0)',
@@ -45,79 +108,54 @@ var cancelButton = document.getElementById('clear');
 saveButton.addEventListener('click', function (event) {
   var data = signaturePad.toDataURL('image/png');
 console.log("dataaaaaaaaaaaaaaa"+data);
- var image = new Image;
-  image.src = data;
-   $("#imageWrapper1").html(image);
-    var imageWrapper = document.getElementsByClassName("imageWrapper")[0].innerHTML;
- // var imageWrapper = document.querySelector('imageWrapper');
-    //imageWrapper.addEventListener('load', function(e){
-    var url = data;
-fetch(url)
-.then(res => res.blob())
-.then(console.log)
-  //console.log("imageWrapper"+file);
-  //var file = e.target.files[0];
-  console.log("file"+url);
- 
-})
-   // var imageWrapper1 = document.getElementById("imageWrapper1").innerHTML;
-    //console.log("imageWrapper"+imageWrapper1);
-  document.getElementById("imageWrapper1").addEventListener('touchend', function(e){
-  var file = e.target.files[0];
- 
-  var storageRef = firebase.storage().ref(file.name);
-  var task = storageRef.put(file);
-  task.on('state_changed', function progress(snapshot) {
- 
-    var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-    uploader.value = percentage;
-       if(percentage==100){
-          storageRef.getDownloadURL().then(function (url) {
- 
-              
-             var imgurl = url;
+   var rid_store = window.localStorage.getItem('rid_store');
+
+  var img = data;
+    var storageRef = firebase.storage().ref(rid_store);
+       var document_id = window.localStorage.getItem('document_id');
+
+        console.log("doc.id"+document_id);
+storageRef.putString(img, 'data_url').then(function(snapshot) {
+  console.log('Uploaded a data_url string!');
+console.log('rid_store'+rid_store);
+      storageRef.getDownloadURL().then(function (url) {
+   var imgurl = url;
               console.log(imgurl);
-                  var email = window.localStorage.getItem('emailForSignIn');
-  
-/*
-         const db= firebase.firestore();
- //        db.collection("stories").where("author", "==", user.uid).get()
+       console.log("doc.id"+document_id);
+        const db = firebase.firestore()
+      db.collection("Reservation")
+    .doc(document_id)
+    .set(
+        {
+           signature: imgurl,
+        },
+        { merge: true }
+    ).then(function() {
+           alert("Signature Added into reservation");
+     
+})
+         
 
- db.collection("users").where("email", "==", email)
-    .get()
-    .then(function(querySnapshot) {
-            //  console.log(querySnapshot);
-        querySnapshot.forEach(function(doc) {
-             console.log(doc.id, " => ", doc.data());
-             console.log(doc.id);
-             
-             db.collection("users")
-        .doc(doc.id)
-        .set(
+      /*const db= firebase.firestore()
+             db.collection("Reservation").doc(documentid).set(
             {
-                idverification: imgurl,
-                id_type: strUser,
+                signature: imgurl,
             },
-            { merge: true }
-            );
-             //
-	            });  }).then(function() {
-           alert("You have been Successfully Upload Your id");
-           window.location.href="https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/terms&con.html";
-
-           }).catch(function(error){  // for when document is not correctly wrote
-            alert("Got an error",error); 
-             });*/
+           { merge: true }
+            );*/
+	            });
+ 
    
           });
-      }
-    
-  } 
-  );
-});  
+
+ 
+
+});
+
 cancelButton.addEventListener('click', function (event) {
   signaturePad.clear();
 });
+window.onload = load_rule;
     </script>
   </body>
 
