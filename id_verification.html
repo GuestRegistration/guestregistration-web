@@ -35,7 +35,7 @@
  		<br><br>
 	<input type="file" id="fileButton" value="upload" style="color:white"/>
   
-
+  <!--<img class="img-circle"  src="Property_logo" alt="Property_logo" id="Property_logo" style="width:100px;height:100px;float: left;">-->
 	</div>
 	<input type="button" onClick="location.href='https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/terms&con.html'" value='Next'>
  
@@ -87,8 +87,7 @@ var fileButton = document.getElementById('fileButton');
       var user = firebase.auth().currentUser;
 
          const db= firebase.firestore();
- //        db.collection("stories").where("author", "==", user.uid).get()
-
+ 
  db.collection("users").where("email", "==", email)
     .get()
     .then(function(querySnapshot) {
@@ -128,7 +127,37 @@ var fileButton = document.getElementById('fileButton');
 	
 	});  
 	
+	function load_id_details() { 
+    console.log("load_id_details");
+            var email = window.localStorage.getItem('emailForSignIn');
+        console.log("stored email"+email);
+  
+    const db= firebase.firestore();
+ db.collection("users").where("email", "==", email)
+    .get()
+    .then(function(querySnapshot) {
+         querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+            document.querySelector('img').src =doc.data().idverification;
+            //	var idtype_db =  document.getElementById("idtype").innerHTML=doc.data().idtype.value;
+            //document.querySelector('select').src =doc.data().idtype;
+            document.querySelector('select').option= doc.data().idtype;
+
+     //     var idtype_db = doc.data().idtype.value;
+       //     console.log(idtype_db);
+          //  document.getElementById('idtype').value = "divya";
+
+
+         });
  
+      console.log("length of document"+length);    
+ 
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+}
+ window.onload = load_id_details;
 </script>
  
   </body>

@@ -73,7 +73,7 @@ h5,h4 {
 
 */
 #divdetail{
-/*     width:100%;*/
+width: 80%;
   clear: both;
      background:rgb(91, 76, 105);    
 }
@@ -82,11 +82,50 @@ h5,h4 {
   clear: both;
      background:rgb(91, 76, 105);    
 }
+
+/*#Property_logo {
+  border-radius: 50%;
+}
+
 #divdetail1{
      width:50%;
- margin-left:250px; }
+ margin-left:250px; 
+    
+}*/
+
+@media screen and (min-width: 400px) {
 #Property_logo {
+    margin-left: 350px;
   border-radius: 50%;
+  float: left;
+
+  }
+
+}
+
+
+@media screen and (min-width: 400px) {
+  #divdetail{
+     width:50%;
+  clear: both;
+     background:rgb(91, 76, 105);    
+}
+}
+
+@media screen and (max-width: 419px) {
+#Property_logo {
+    margin-left: 25px;
+     border-radius: 50%;
+float: left;
+  }
+
+}
+@media screen and (min-width: 400px) {
+  #divdetail{
+    
+  clear: both;
+     background:rgb(91, 76, 105);    
+}
 }
 .resizedTextbox {width: 300px; height: 40px}
 
