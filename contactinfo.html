@@ -31,6 +31,11 @@ style="display:none; border:1px solid red; color:red; background-color:white; fo
 </center>
 </div>
 <script>
+console.log("url"+window.location.href);
+const urlParams = new URLSearchParams(window.location.search);
+const documentid = urlParams.get('Reservation');
+console.log("parsedUrl"+url);
+console.log("documentid"+documentid); 
 function RemoveErrorMessageFromPage()
 {
    var IDofContainer = "my-error-message-container";

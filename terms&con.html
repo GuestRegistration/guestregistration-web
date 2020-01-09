@@ -122,39 +122,299 @@ console.log('rid_store'+rid_store);
    var imgurl = url;
               console.log(imgurl);
        console.log("doc.id"+document_id);
-        const db = firebase.firestore()
-      db.collection("Reservation")
-    .doc(document_id)
-    .set(
-        {
+          var user = firebase.auth().currentUser;
+                console.log("termsuser"+user);
+                console.log("firebase.auth().currentUser.uid");
+                console.log(firebase.auth().currentUser.uid);
+                var primary_uid = firebase.auth().currentUser.uid;
+                console.log("primary_uid"+primary_uid);
+                  var doc_id;
+        const db = firebase.firestore();
+      /*  db.collection("ReservationSubmission")
+        .doc()
+        .set(
+            {
            signature: imgurl,
-        },
-        { merge: true }
-    ).then(function() {
-           alert("Signature Added into reservation");
-     
-})
-         
+           Basic_Reservation_ID:document_id,
+           primary_guest_uid:primary_uid,
+            },
+            { merge: true }
+            );*/
+            
+//const db= firebase.firestore();
+/*const dbRef1=db.collection('ReservationSubmission').where("Basic_Reservation_ID", "==", document_id)
+dbRef1.get().then(function(doc) {
+	if (doc.exists) {
+	     console.log("docid"+doc.id);
+	    console.log("inside if");
+	      db.collection("ReservationSubmission").where("Basic_Reservation_ID", "==", document_id)
+    .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+	        db.collection("ReservationSubmission")
+        .doc(doc.id)
+        .set(
+            {
+                //additional_guest: additional_guest,
+                 Additiona_guest_User_ID: Additional_email,
+            },
+            { merge: true }
+            );
+         });
+    })
+	 
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+	}
+	else {
+	    	    console.log("inside else");
 
-      /*const db= firebase.firestore()
-             db.collection("Reservation").doc(documentid).set(
+		console.log("Data not Present");
+		        const db = firebase.firestore();
+		  db.collection("ReservationSubmission")
+        .doc()
+        .set(
             {
                 signature: imgurl,
+           Basic_Reservation_ID:document_id,
+           primary_guest_uid:primary_uid,
             },
-           { merge: true }
+            { merge: true }
+            );
+	}*/
+
+/*	if(db.collection("ReservationSubmission").where("Basic_Reservation_ID", "==", document_id)
+    .get()){
+	    console.log("Existing User");
+	    //existing User
+	    	  db.collection("ReservationSubmission").where("Basic_Reservation_ID", "==", document_id)
+    .get()
+    .then(function(querySnapshot) {
+          
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+             console.log("doccccccccccccccccciddddddd"+doc.id);
+ 
+                        console.log("doccccccccccccccccc"+doc.id);
+               console.log("doccccccccccccccccc"+querySnapshot.docs.length);
+ 
+ 
+             db.collection("ReservationSubmission")
+        .doc(doc.id)
+        .set(
+            {
+                 signature: imgurl,
+           Basic_Reservation_ID:document_id,
+           primary_guest_uid:primary_uid,
+            },
+            { merge: true }
+            );
+         
+     })
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+	}
+	else{
+	    console.log("NEw user");
+	           db.collection("ReservationSubmission")
+        .doc()
+        .set(
+            {
+                 signature: imgurl,
+           Basic_Reservation_ID:document_id,
+           primary_guest_uid:primary_uid,
+            },
+            { merge: true }
+            );
+	}*/
+	  db.collection("ReservationSubmission").where("Basic_Reservation_ID", "==", document_id)
+    .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+             console.log("doccccccccccccccccciddddddd"+doc.id);
+              doc_id= doc.id;
+ 
+                        console.log("doccccccccccccccccc"+doc.id);
+               console.log("doccccccccccccccccc"+querySnapshot.docs.length);
+
+         //querySnapshot.docs.length
+        });
+         if(querySnapshot.docs.length != 0){
+             console.log("Existing User");
+	    //existing User
+             console.log("inside if");
+             db.collection("ReservationSubmission")
+        .doc(doc_id)
+        .set(
+            {
+                 signature: imgurl,
+           Basic_Reservation_ID:document_id,
+           primary_guest_uid:primary_uid,
+            },
+            { merge: true }
+            );
+         }
+         else{
+             console.log("New User");
+	    //New User
+          console.log("inside else");
+          const db = firebase.firestore();
+/*const ref = db.collection('ReservationSubmission').doc();
+       //   const id = ref.id;
+         // console.log("ref.id");
+
+//console.log(ref.id);
+//const db = firebase.firestore();
+ ref = set(
+            {
+                 signature: imgurl,
+           Basic_Reservation_ID:document_id,
+           primary_guest_uid:primary_uid,
+            },
+            { merge: true }
             );*/
-	            });
- 
-   
-          });
+            
+            
 
- 
 
+                db.collection("ReservationSubmission")
+        .doc()
+        .set(
+            {
+                 signature: imgurl,
+           Basic_Reservation_ID:document_id,
+           primary_guest_uid:primary_uid,
+            },
+            { merge: true }
+            );
+            
+            update_reservation_table(document_id);
+            
+    /*db.collection("ReservationSubmission").doc()
+    .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+	        db.collection("ReservationSubmission")
+        .doc(doc.id)
+        .set(
+            {
+                 signature: imgurl,
+           Basic_Reservation_ID:document_id,
+           primary_guest_uid:primary_uid,
+            },
+       //     { merge: true }
+            );
+         });
+    })   */
+        /*db.collection("Reservation")
+       .doc(doc_id)
+        .set({
+            Reservation_Submission_ID  : doc_id,
+    });*/
+    /*db.collection("Reservation").where("Basic_Reservation_ID", "==", document_id)
+    .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+	        db.collection("ReservationSubmission")
+        .doc(doc.id)
+        .set(
+            {
+                //additional_guest: additional_guest,
+                 Additiona_guest_User_ID: Additional_email,
+            },
+            { merge: true }
+            );
+         });
+    })*/
+         }
+
+    //})
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+  })
+  
+})
+    
 });
-
+    
+//});
+function update_reservation_table(document_id){
+      const db = firebase.firestore();
+     db.collection("ReservationSubmission").where("Basic_Reservation_ID", "==", document_id)
+    .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log("ReservationSubmission document id"+doc.id);
+        db.collection("Reservation").doc(document_id)
+         .set(
+            {
+                Reservation_Submission_ID : doc.id,
+            },
+            { merge: true }
+            );
+   /* .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(document1) {
+             console.log(document1.id, " => ", document1.data());
+	        db.collection("ReservationSubmission")
+        .doc(document1.id)
+        .set(
+            {
+                Reservation_Submission_ID : doc.id,
+            },
+            { merge: true }
+            );
+         });
+    })*/
+            
+        })
+        
+    })
+        
+}
 cancelButton.addEventListener('click', function (event) {
   signaturePad.clear();
 });
+/*function load_signature() { 
+    console.log("load_signature");
+           var property_id = window.localStorage.getItem('property_id');
+        console.log("stored property_id"+property_id);
+     pid1 = parseInt(property_id);
+    const db= firebase.firestore();
+ db.collection("Properties").where("Propertyid", "==", pid1)
+    .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log(doc.id, " => ", doc.data());
+	document.getElementById("Property_Name").innerHTML=doc.data().Property_Name;
+          //    document.querySelector('img').src =doc.data().terms;
+          	document.getElementById("terms").innerHTML=doc.data().terms;
+
+         });
+ 
+      console.log("length of document"+length);    
+ 
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+}*/
 window.onload = load_rule;
     </script>
   </body>

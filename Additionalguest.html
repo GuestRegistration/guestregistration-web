@@ -41,7 +41,9 @@
             <h4>Additional Guest email address</h4>
      <input type="email" name="Additional_email" class="resizedTextbox" id ="Additional_email" size="30"><br><br><br>
      </div>
-     <input type="button" onClick=store_additional_guest() value='Next'>
+     <!--<input type="button" onClick=store_additional_guest() value='Next'>-->
+          <input type="button" onClick=send_mail() value='Next'>
+
 
 </center>
  
@@ -79,6 +81,25 @@ $('#additional_guest').on('change',function(){
         console.log("Error getting documents: ", error);
     });
 }
+             const actionCodeSettings = {
+     //url:'https://fluttertest.000webhostapp.com/JavaScript/Read Data/id_verification.html',
+          url:'https://fluttertest.000webhostapp.com/JavaScript/Read Data/contactinfo.html?Reservation=wXF8ugHR5McpM1dldHCK',
+     dynamicLinkDomain : 'guestsignin.page.link',
+    handleCodeInApp: true,
+   };
+   
+   function send_mail(){
+           var Additional_email = document.getElementById("Additional_email").value;
+
+        firebase.auth().sendSignInLinkToEmail(Additional_email, actionCodeSettings)
+.then(function() {
+ console.log("inside try email"+Additional_email);
+  console.log("Email sent to"+Additional_email);
+          alert('An email was sent to ' + Additional_email + '. Please use the link in the email to sign-in.');
+          //window.localStorage.setItem('Additional_email', Additional_email);
+ 
+})
+   }
 function store_additional_guest(){
      console.log("inside store_additional_gues");
     var rid_store = window.localStorage.getItem('rid_store');
@@ -91,19 +112,23 @@ function store_additional_guest(){
              var additional_guest = additional_guest.options[additional_guest.selectedIndex].text;
              console.log(additional_guest);
     rid1 = parseInt(rid_store);
+      var document_id = window.localStorage.getItem('document_id');
+
+        console.log("doc.id"+document_id);
     const db= firebase.firestore();
- db.collection("Reservation").where("resevation_id", "==", rid1)
+ 
+     db.collection("ReservationSubmission").where("Basic_Reservation_ID", "==", document_id)
     .get()
     .then(function(querySnapshot) {
               //console.log(querySnapshot);
         querySnapshot.forEach(function(doc) {
              console.log(doc.id, " => ", doc.data());
-	        db.collection("Reservation")
+	        db.collection("ReservationSubmission")
         .doc(doc.id)
         .set(
             {
-                additional_guest: additional_guest,
-                 additional_guest_email: Additional_email,
+                //additional_guest: additional_guest,
+                 Additiona_guest_User_ID: Additional_email,
             },
             { merge: true }
             );
@@ -112,6 +137,7 @@ function store_additional_guest(){
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });
+
 }
  window.onload = load_rule;
     </script>
