@@ -81,14 +81,19 @@ $('#additional_guest').on('change',function(){
         console.log("Error getting documents: ", error);
     });
 }
-             const actionCodeSettings = {
-     //url:'https://fluttertest.000webhostapp.com/JavaScript/Read Data/id_verification.html',
-          url:'https://fluttertest.000webhostapp.com/JavaScript/Read Data/contactinfo.html?Reservation=wXF8ugHR5McpM1dldHCK',
+      
+   
+   function send_mail(){
+                        var document_id = window.localStorage.getItem('document_id');
+console.log(document_id);
+var url='https://fluttertest.000webhostapp.com/JavaScript/Read Data/additional_contactinfo.html?Reservation='+document_id;
+console.log("url"+url);
+              const actionCodeSettings = {
+     // url:'https://fluttertest.000webhostapp.com/JavaScript/Read Data/additional_contactinfo.html?Reservation="+document_id+"',
+     url : url,
      dynamicLinkDomain : 'guestsignin.page.link',
     handleCodeInApp: true,
    };
-   
-   function send_mail(){
            var Additional_email = document.getElementById("Additional_email").value;
 
         firebase.auth().sendSignInLinkToEmail(Additional_email, actionCodeSettings)

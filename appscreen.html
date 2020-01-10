@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Contact Information</title>
+   
+     
+      <link rel="stylesheet" href="CSS/style.css">
+<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+   <script src="JS/retrievelink.js"></script>
+     <script src="/__/firebase/7.6.1/firebase-auth.js"></script>
+
+  <script type="text/javascript" src="JS/jquery-3.4.1.js"></script>
+ 
+ 
+  </head>
+  <body>
+      <div>
+      <center>
+    <h1>Welcome to app Screen </h1>
+     
+   
+</center>
+</div>
+<script>
+var url =  window.location.href;
+console.log("url"+window.location.href);
+const urlParams = new URLSearchParams(window.location.search);
+const documentid = urlParams.get('Reservation');
+const Additionalguest = urlParams.get('Additionalguest');
+console.log("Additionalguest true or false"+Additionalguest);
+console.log(" documentid for additional guest"+documentid); 
+console.log("parsedUrl"+url);
+
+
+function store_additionaluser_uid(){
+    console.log("inside store_additionaluser_uid ");
+      console.log("hiiiiiiii");
+   //    var user = firebase.auth().currentUser;
+ //      console.log(user);
+                var additional_guest_email = window.localStorage.getItem('additional_email');
+                                var additional_guest_uid = window.localStorage.getItem('additional_uid');
+
+console.log("additional_guest_email"+additional_guest_email);
+console.log("additional_guest_uid"+additional_guest_uid);
+
+  console.log("hloooo");
+          var documentid = window.localStorage.getItem('documentid');   
+console.log(documentid);
+    // var Additional_guest_uid = firebase.auth().currentUser.uid;
+      //          console.log("Additional_guest_uid"+Additional_guest_uid);
+    const db = firebase.firestore();
+
+     db.collection("ReservationSubmission").where("Basic_Reservation_ID", "==", documentid)
+    .get()
+    .then(function(querySnapshot) {
+              //console.log(querySnapshot);
+        querySnapshot.forEach(function(doc) {
+             console.log("ReservationSubmission document id"+doc.id);
+        db.collection("ReservationSubmission").doc(doc.id)
+         .set(
+            {
+                Additional_guest_uid : additional_guest_uid,
+            },
+            { merge: true }
+            );
+  
+        })
+        
+    })
+    
+}
+
+
+window.onload = store_additionaluser_uid;
+</script>
+  </body>
+
+</html>
+ 

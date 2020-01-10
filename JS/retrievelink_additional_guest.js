@@ -58,11 +58,19 @@ const storageRef = storageService.ref();
                 console.log(user1);
                 console.log("firebase.auth().currentUser.uid");
                 console.log(firebase.auth().currentUser.uid);
+                                            console.log("firebase.auth().currentUser.email");
+                                              console.log(firebase.auth().currentUser.email);
+                var additional_guest_email = firebase.auth().currentUser.email;
+                var additional_guest_uid = firebase.auth().currentUser.uid;
+     var additionalemail = window.localStorage.setItem('additional_email',additional_guest_email);
+ var additionaluid = window.localStorage.setItem('additional_uid',additional_guest_uid);
+
+
               //  storeuser(); 
             }
             else{
-                 window.location.href = "https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/id_verification.html";
-                 
+                 window.location.href = "https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/appscreen.html";
+ 
             }
           }).catch(function(error) {
             // Handle Errors here.
@@ -91,14 +99,14 @@ const storageRef = storageService.ref();
        
  function storeuser() {
  var user = firebase.auth().currentUser;
-         var email = window.localStorage.getItem('emailForSignIn');
-console.log("email"+email);
+         //var email = window.localStorage.getItem('emailForSignIn');
+//console.log("email"+email);
        //var email = document.getElementById("email").value;
        //var email1 = document.getElementById("email").value;
       var firstname = document.getElementById("firstname").value;
        var lastname = document.getElementById("lastname").value;
        var phone = document.getElementById("phone").value;
- 
+         var additional_guest_email = firebase.auth().currentUser.email;
 console.log(firstname);
 console.log("lname"+lastname);
 console.log("phone"+phone);
@@ -119,14 +127,14 @@ const db= firebase.firestore();
             name: firstname,
             lastname: lastname,
             phone: phone,
-            email:email
+            email:additional_guest_email,
             
         },
         { merge: true }
     ).then(function() {
            alert("You have been Successfully Register with Guest Registration App");
-           window.location.href="https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/id_verification.html";
-      //     window.location.href="https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/appscreen.html";
+       //    window.location.href="https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/id_verification.html";
+           window.location.href="https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/appscreen.html";
 
 
            }).catch(function(error){  // for when document is not correctly wrote
@@ -139,58 +147,11 @@ const db= firebase.firestore();
       // Restore the previously used value of the email.
       var email = window.localStorage.getItem('emailForSignIn');
       console.log("emailForSignInnnnnnnnnnnnnnn"+email);
-      // console.log("storedddddddmail"+emailForSignIn);
-      //document.getElementById('email').value = email;
-         //   document.getElementById('emailForSignIn').value = email;
-
-      // Automatically signs the user-in using the link.
-      handleSignIn();
-      // Listening for auth state changes.
-      // [START authstatelistener]
-      /*firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-          var displayName = user.displayName;
-          var email = user.email;
-          var emailVerified = user.emailVerified;
-          var photoURL = user.photoURL;
-          var isAnonymous = user.isAnonymous;
-          var uid = user.uid;
-          var providerData = user.providerData;
-          // Update UI.
-          
-        } else {
-            console.log("inside else");
-              }
-            });*/
-      // [END authstatelistener]
-    }
      
-
- 
-
-/*function lupload(){
-      
-  var fileButton = document.getElementById('fileButton');
-  fileButton.addEventListener('change', function(e){
-  var file = e.target.files[0];
-  var storageRef = firebase.storage().ref(file.name);
-  var task = storageRef.put(file);
-  task.on('state_changed', function progress(snapshot) {
-      console.log("start uploading");
-
-    var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
-    uploader.value = percentage;
-  }, function error(err) {
-console.log(err);
-
-  },function complete() {
-alert("added");
-  });
-});  
+      handleSignIn();
   
-}
-      */
+    }
+
    
   
     window.onload = initApp;

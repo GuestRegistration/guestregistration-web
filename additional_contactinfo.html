@@ -8,7 +8,7 @@
       <link rel="stylesheet" href="CSS/style.css">
 <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
-   <script src="JS/retrievelink.js"></script>
+   <script src="JS/retrievelink_additional_guest.js"></script>
   <script type="text/javascript" src="JS/jquery-3.4.1.js"></script>
  
  
@@ -39,7 +39,7 @@ const Additionalguest = urlParams.get('Additionalguest');
 console.log("Additionalguest true or false"+Additionalguest);
 console.log(" documentid for additional guest"+documentid); 
 console.log("parsedUrl"+url);
-//store_additionaluser_uid();
+
           window.localStorage.setItem('documentid', documentid);
 /*function store_additionaluser_uid(documentid){
     console.log("inside store_additionaluser_uid ");
