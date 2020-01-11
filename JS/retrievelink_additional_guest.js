@@ -51,10 +51,7 @@ const storageRef = storageService.ref();
             else{
                 console.log("newuser");
             }*/
-            
-            if(isNewUser == true){
-             console.log("newuser");
-            var user1 = firebase.auth().currentUser;
+             var user1 = firebase.auth().currentUser;
                 console.log(user1);
                 console.log("firebase.auth().currentUser.uid");
                 console.log(firebase.auth().currentUser.uid);
@@ -65,10 +62,33 @@ const storageRef = storageService.ref();
      var additionalemail = window.localStorage.setItem('additional_email',additional_guest_email);
  var additionaluid = window.localStorage.setItem('additional_uid',additional_guest_uid);
 
+            if(isNewUser == true){
+             console.log("newuser");
+          /*  var user1 = firebase.auth().currentUser;
+                console.log(user1);
+                console.log("firebase.auth().currentUser.uid");
+                console.log(firebase.auth().currentUser.uid);
+                                            console.log("firebase.auth().currentUser.email");
+                                              console.log(firebase.auth().currentUser.email);
+                var additional_guest_email = firebase.auth().currentUser.email;
+                var additional_guest_uid = firebase.auth().currentUser.uid;
+     var additionalemail = window.localStorage.setItem('additional_email',additional_guest_email);
+ var additionaluid = window.localStorage.setItem('additional_uid',additional_guest_uid);*/
+
 
               //  storeuser(); 
             }
             else{
+                /*   user = firebase.auth().currentUser;
+                console.log(user);
+                console.log("firebase.auth().currentUser.uid");
+                console.log(firebase.auth().currentUser.uid);
+                console.log("firebase.auth().currentUser.email");
+                console.log(firebase.auth().currentUser.email);
+                var additional_guest_email = firebase.auth().currentUser.email;
+                var additional_guest_uid = firebase.auth().currentUser.uid;
+     var additionalemail = window.localStorage.setItem('additional_email',additional_guest_email);
+ var additionaluid = window.localStorage.setItem('additional_uid',additional_guest_uid);*/
                  window.location.href = "https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/appscreen.html";
  
             }
