@@ -39,16 +39,70 @@
 
     <div id="add_email_div" style="display:none;">
             <h4>Additional Guest email address</h4>
-     <input type="email" name="Additional_email" class="resizedTextbox" id ="Additional_email" size="30"><br><br><br>
+     <input type="email" name="Additional_email" class="resizedTextbox" id ="Additional_email" size="30" 
+   ><br><br><br>
      </div>
-     <!--<input type="button" onClick=store_additional_guest() value='Next'>-->
-          <input type="button" onClick=send_mail() value='Next'>
+     <p id="my-error-message-container" 
+style="display:none; border:1px solid red; color:red; background-color:white; font-size:12px; padding:0px; width:188px;"></p>
+    
+     <!--<input type="button" onClick=send_mail() value='Next'>-->
+          <input type="button" onClick=validate() value='Next'>
 
 
 </center>
  
 
     <script>
+        function RemoveErrorMessageFromPage()
+{
+   var IDofContainer = "my-error-message-container";
+   document.getElementById(IDofContainer).innerHTML = "";
+   document.getElementById(IDofContainer).style.display = "none";
+}
+
+function InsertErrorMessageIntoPage(content)
+{
+   var IDofContainer = "my-error-message-container";
+   document.getElementById(IDofContainer).style.display = "";
+   document.getElementById(IDofContainer).innerHTML = content;
+}
+    function validate(){
+        console.log("inside validate");
+        //var additional_guest = document.getElementById('additional_guest');
+                     
+             var additional_guest = document.getElementById("additional_guest");
+             var additional_guest = additional_guest.options[additional_guest.selectedIndex].text;
+        console.log(additional_guest);
+
+if(additional_guest == 'No'){
+         window.location.href='https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/payment.html';
+}
+else{
+    console.log("inside else");
+        RemoveErrorMessageFromPage();
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+       var email = document.getElementById("Additional_email").value;
+  if (email === "") {
+          InsertErrorMessageIntoPage("Please Enter a Valid Email Address!");
+
+     return false;
+  }
+  else if(email.match(mailformat))
+{
+     send_mail();
+
+return true;
+}
+  else{
+                 InsertErrorMessageIntoPage("Invalid Email Address!");
+
+ return false;
+}
+    
+}
+    }
+
+
 $('#additional_guest').on('change',function(){
     if( $(this).val()==="Yes"){
     $("#add_email_div").show()
@@ -101,7 +155,7 @@ console.log("url"+url);
  console.log("inside try email"+Additional_email);
   console.log("Email sent to"+Additional_email);
           alert('An email was sent to ' + Additional_email + '. Please use the link in the email to sign-in.');
-          //window.localStorage.setItem('Additional_email', Additional_email);
+         window.location.href='https://fluttertest.000webhostapp.com/JavaScript/Read%20Data/payment.html';
  
 })
    }
